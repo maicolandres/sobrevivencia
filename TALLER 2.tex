@@ -1,0 +1,211 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{ragged2e}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{verbatim}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{adjustbox}
+\usepackage{booktabs} % Para líneas horizontales más bonitas
+\usepackage{adjustbox} % Para ajustar el ancho de la tabla
+\usepackage{caption} % Para modificar la apariencia de la leyenda de la tabla
+
+\begin{document}
+
+\begin{center}
+
+\vspace{1.7cm}    
+    \Large
+    \textbf{ SUPERVIVENCIA EN CÁNCER DE MAMA. }
+  
+    \vspace{0.7cm}
+    \LARGE
+    UNIVERSIDAD DE CÓRDOBA 
+    
+    \vspace{0.8cm}
+    \LARGE
+    FACULTAD DE CIENCIAS BÁSICAS
+  \vspace{1.5cm}  
+  \begin{figure}[H]
+\centering
+  
+  
+  \includegraphics[scale=0.4]{logo.jpg}   
+   
+\end{figure}      
+  
+    
+    
+    
+    \vspace{1.5cm}
+    \normalsize    
+     
+    \vspace{.3cm}
+    ESTUDIANTES \\
+    \large
+    \textbf{Maikol Niño Paez \\ Yuliana Quiñonez Loaisa \\David Vergara Santiz }
+    
+    \vspace{1.5cm}
+    \normalsize    
+    DOCENTE \\
+    
+    \large
+    \textbf{Jairo Arturo Angel Guzmàn }
+    
+    \vspace{1cm}
+    \normalsize    
+  
+    \vspace{.2cm}
+    \large
+    \textbf{Análisis de Sobrevivencia.}
+    
+    \vspace{0.7 cm}
+    \textbf{Mayo 2024}
+\end{center}
+
+\date{} 
+
+\justify
+\setlength{\parindent}{0cm}
+
+
+
+\tableofcontents
+\newpage
+
+
+\listoftables
+\newpage
+
+\listoffigures
+\newpage
+
+\newpage
+\section{Introducción.}
+El análisis estadístico desempeña un papel crucial en la interpretación de conjuntos de datos diversos, incluidos los provenientes de estudios clínicos como el realizado por el Grupo Alemán de Estudios sobre el Cáncer de Mama (GBSG). Este ensayo, que abarcó el período de 1984-1989, se centró en 720 pacientes con cáncer de mama positivo en nódulos, de los cuales se conservaron los datos completos de 686 pacientes para las variables pronósticas.
+\\
+Este conjunto de datos ofrece una ventana a la realidad clínica de pacientes que enfrentan una enfermedad potencialmente terminal, proporcionando información valiosa sobre diversos aspectos demográficos y clínicos. Desde la edad y género de los pacientes hasta indicadores pronósticos específicos, cada variable arroja luz sobre la complejidad de la condición y las necesidades de atención de los pacientes.
+\\
+Al abordar estos datos desde una perspectiva estadística, nuestro objetivo no solo es entender los patrones y relaciones presentes, sino también traducir esta comprensión en información procesable. Este análisis puede tener un impacto significativo en la toma de decisiones clínicas, el diseño de políticas de salud y la identificación de áreas de intervención para mejorar la calidad de vida y la supervivencia de los pacientes con cáncer de mama.
+\\
+La aplicación rigurosa de métodos estadísticos nos permite explorar relaciones complejas entre variables y generar conocimientos que pueden guiar prácticas clínicas efectivas y estrategias de salud pública. Desde la identificación de factores de riesgo hasta la evaluación de la eficacia de diferentes tratamientos, el análisis estadístico de estos datos es fundamental para mejorar el manejo y tratamiento del cáncer de mama.
+\newpage
+\section{Objetivos.}
+
+\begin{itemize}
+\item Realizar una descripción exhaustiva del conjunto de datos GBSG del Grupo Alemán de Estudios sobre el Cáncer de Mama, destacando las variables disponibles, su tipo y su significado clínico en el contexto del cáncer de mama positivo en nódulos.
+\item Crear un esquema gráfico que represente visualmente la situación de las pacientes, los tiempos y los estados en el conjunto de datos, ofreciendo una representación clara de la dinámica de la enfermedad y la supervivencia.
+\item Detallar de manera general los resultados obtenidos del análisis exploratorio y su relevancia para comprender la dinámica de la supervivencia en pacientes con cáncer de mama positivo en nódulos.
+\item Generar una tabla de supervivencia que muestre la información sobre las pacientes, los tiempos y los estados de supervivencia, facilitando la comprensión de la evolución de la enfermedad.
+\item Utilizar el método de Kaplan-Meier para estimar la curva de supervivencia y proporcionar una interpretación detallada de los resultados obtenidos, identificando posibles factores pronósticos y tendencias significativas.
+\item Interpretar los hallazgos estadísticos en el contexto clínico, destacando la relevancia de los resultados para la práctica médica y la toma de decisiones en el manejo y tratamiento del cáncer de mama positivo en nódulos.
+\end{itemize}
+
+\newpage
+\section{Descripción de la Data.}
+El paquete "survival" en R proporciona acceso al conjunto de datos "cancer", que ofrece información valiosa sobre la supervivencia de pacientes diagnosticadas con cáncer de mama. Estos datos han sido recopilados como parte de estudios clínicos realizados por el Grupo del Norte Central de Tratamiento del Cáncer (NCCTG), una organización dedicada a la investigación y tratamiento del cáncer.
+\\
+Las variables disponibles en este conjunto de datos son las siguientes:
+
+\subsection{Variables Numéricas.}
+
+\begin{itemize} 
+\item  \textbf{Pid:} Identificación del paciente.
+\item \textbf{Age:}  Edad (Años).
+\item  \textbf{Size:} Tamaño del tumor $(mm).$
+\item \textbf{Grade:} Grado del tumor.
+\item  \textbf{Nodes:} Número de ganglios linfáticos positivos.
+\item \textbf{Er:} Receptores de estrógeno $(fmol/l)$.
+\item  \textbf{Pgr:} Receptores de progesterona $(fmol/l)$.
+\item \textbf{Rfstime:} Tiempo de supervivencia en días hasta la ocurrencia del evento.  
+\end{itemize}
+
+\subsection{Variables Categóricas Dicotómicas.}
+\begin{itemize}
+
+\item \textbf{Meno:} Estado menopáusico 
+\begin{itemize}
+\item \textbf{0:} Premenopáusico
+\item \textbf{1:} Posmenopáusico
+\end{itemize}
+\item \textbf{Hormon:} Terapia hormonal.
+\begin{itemize}
+\item \textbf{0:} No.
+\item \textbf{1:} Si.
+\end{itemize}
+\item \textbf{Status:} Estado.
+\begin{itemize}
+\item \textbf{0:} Indica que el evento no ha ocurrido (censurado).
+\item \textbf{1:} Indica que el paciente ha experimentado el evento (muerte).
+\end{itemize}
+\end{itemize}
+
+\newpage
+\section{Resultados.}
+
+\subsection{Análisis descriptivo.}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Estadísticas Descriptivas de los Datos}
+  \begin{adjustbox}{width=\textwidth} % Ajustar ancho de la tabla al ancho de la página
+    \begin{tabular}{lccccccc}
+      \toprule
+      & Min & Mediana & Media & Máx & Q1 & Q3 & Desv. Est. \\
+      \midrule
+      Edad (Años) & 21.00 & 53.00 & 53.05 & 80.00 & 46.00 & 61.00 & 10.12 \\
+      Er $(fmol/l)$ & 0.00 & 36.00 & 96.25 & 1144.00 & 8.00 & 115.00 & 153.08 \\
+      Grado & 1.00 & 2.00 & 2.12 & 3.00 & 2.00 & 2.00 & 0.58 \\
+      
+      Nodos & 1.00 & 3.00 & 5.01 & 51.00 & 1.00 & 7.00 & 5.48 \\
+      PGR $(fmol/l)$ & 0.00 & 32.50 & 110.00 & 2380.00 & 7.00 & 132.00 & 202.33 \\
+      
+      Tiempo de supervivencia  & 8.00 & 1084.00 & 1124.49 & 2659.00 & 567.00 & 1685.00 & 642.79 \\
+      Tamaño del tumor $(mm)$ & 3.00 & 25.00 & 29.33 & 120.00 & 20.00 & 35.00 & 14.30 \\
+      
+      \bottomrule
+    \end{tabular}
+  \end{adjustbox}
+\end{table}
+
+
+\subsection{Estimación de curva de supervivencia mediante Kaplan Meier.}
+
+\subsection{Estimación de curva de supervivencia mediante Kaplan Meier por grupo etario.}
+\subsubsection{Grupo etario adulto entre 39 y 59 años }
+
+%\begin{figure}[H]
+%\centering
+%\caption{Densidades de las variables en función del estado.}
+%\begin{adjustbox}{width=\textwidth} % Ajustar ancho de la tabla al ancho de la página
+%\includegraphics[scale=1.5]{2.1.png}
+%\end{adjustbox}
+%\end{figure}
+
+%\begin{figure}[H]
+%\centering
+%\caption{Dispersión de los varibles en función del tiempo.}
+%\begin{adjustbox}{width=\textwidth} % Ajustar ancho de la tabla al ancho de la página
+%\includegraphics[scale=1.5]{2.3.png}
+%\end{adjustbox}
+%\end{figure}
+%\end{center}
+
+%\begin{figure}[H]
+%\centering
+%\caption{Curva de Sobrevivencia Kaplan–Meier por género.}
+%\begin{adjustbox}{width=\textwidth} % Ajustar ancho de la tabla al ancho de la página
+%\includegraphics[scale=1.5]{2.4.png}
+%\end{adjustbox}
+%\end{figure}
+
+
+\section{Conclusiones.}
+   
+
+\end{document}
